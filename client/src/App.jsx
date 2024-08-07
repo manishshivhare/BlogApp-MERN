@@ -19,8 +19,8 @@ export default function App() {
       <Route path='/dashboard' element={<Dashboard />}/>
       <Route path='/about' element={<About />}/>
       <Route path='/projects' element={<Projects />}/>
-      <Route path='/signin' element={<SignIn />}/>
-      <Route path='/signup' element={<SignUp />}/>
+      <Route path='/sign-in' element={<SignIn />}/>
+      <Route path='/sign-up' element={<SignUp />}/>
     </Routes>
     <Footer />
     </BrowserRouter>
