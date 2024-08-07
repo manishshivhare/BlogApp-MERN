@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import 'flowbite/dist/flowbite.css';
 import Home from './pages/Home/'
 import About from './pages/About/'
 import Projects from './pages/Projects/'
