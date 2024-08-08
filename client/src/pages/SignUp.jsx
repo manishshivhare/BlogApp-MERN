@@ -111,7 +111,7 @@ export default function SignUp() {
             <Alert className='mt-5' color='failure'>
               {errorMessage}
             </Alert>
-          )}
+          )}  
         </div>
       </div>
     </div>
