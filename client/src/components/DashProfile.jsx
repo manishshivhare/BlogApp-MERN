@@ -10,6 +10,11 @@ import {
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
@@ -41,6 +46,16 @@ export default function DashProfile() {
   }, [imageFile]);
 
   const uploadImage = async () => {
+    // service firebase.storage {
+    //   match /b/{bucket}/o {
+    //     match /{allPaths=**} {
+    //       allow read;
+    //       allow write: if
+    //       request.resource.size < 2 * 1024 * 1024 &&
+    //       request.resource.contentType.matches('image/.*')
+    //     }
+    //   }
+    // }
     setImageFileUploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
@@ -57,7 +72,7 @@ export default function DashProfile() {
       },
       (error) => {
         setImageFileUploadError(
-          ""+ error
+          'Could not upload image (File must be less than 2MB)'
         );
         setImageFileUploadProgress(null);
         setImageFile(null);
@@ -112,39 +127,7 @@ export default function DashProfile() {
       setUpdateUserError(error.message);
     }
   };
-  const handleDeleteUser = async () => {
-    setShowModal(false);
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        dispatch(deleteUserFailure(data.message));
-      } else {
-        dispatch(deleteUserSuccess(data));
-      }
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message));
-    }
-  };
-
-  const handleSignout = async () => {
-    try {
-      const res = await fetch('/api/user/signout', {
-        method: 'POST',
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
-        dispatch(signoutSuccess());
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
       <h1 className='my-7 text-center font-semibold text-3xl'>Profile</h1>
@@ -235,10 +218,10 @@ export default function DashProfile() {
         )}
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
-        <span onClick={() => setShowModal(true)} className='cursor-pointer'>
+        <span  className='cursor-pointer'>
           Delete Account
         </span>
-        <span onClick={handleSignout} className='cursor-pointer'>
+        <span  className='cursor-pointer'>
           Sign Out
         </span>
       </div>
@@ -259,7 +242,7 @@ export default function DashProfile() {
       )}
       <Modal
         show={showModal}
-        onClose={() => setShowModal(false)}
+        
         popup
         size='md'
       >
@@ -271,10 +254,10 @@ export default function DashProfile() {
               Are you sure you want to delete your account?
             </h3>
             <div className='flex justify-center gap-4'>
-              <Button color='failure' onClick={handleDeleteUser}>
+              <Button color='failure' >
                 Yes, I'm sure
               </Button>
-              <Button color='gray' onClick={() => setShowModal(false)}>
+              <Button color='gray' >
                 No, cancel
               </Button>
             </div>
