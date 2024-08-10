@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const path = useLocation().pathname;
+
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
@@ -80,7 +81,7 @@ export default function Header() {
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Link to="/sign-in">
+          <Link to="/sign-in" className={path=='/sign-in' || path=='/sign-up' ? 'hidden':'inline'}> 
             <Button gradientDuoTone="purpleToBlue" outline>
               Sign In
             </Button>

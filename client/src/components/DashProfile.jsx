@@ -107,10 +107,10 @@ export default function DashProfile() {
       }
     }
   };
-  const [confirmPassword, setConfirmPassword] = useState({})
-  const confirmPasswordChange = (e) =>{
-    setConfirmPassword({...confirmPassword, [e.target.id]: e.target.value})
-  }
+  const [confirmPassword, setConfirmPassword] = useState({});
+  const confirmPasswordChange = (e) => {
+    setConfirmPassword({ ...confirmPassword, [e.target.id]: e.target.value });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdateUserError(null);
@@ -322,7 +322,6 @@ export default function DashProfile() {
             </h3>
             <div className="mb-5 w-60 mx-auto">
               <TextInput
-                
                 type="password"
                 id="confirmPassowrd"
                 placeholder="enter password"
