@@ -63,13 +63,18 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
+  if (req.user.isAdmin) {
+    console.log(req.params.userId)
+    await User.findByIdAndDelete(req.params.userId);
+    res.status(200).json("User has been deleted");
+  }
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this user"));
   }
   try {
-    const search = req.params.userId
-    const isUser = await User.findOne({_id:search});
-   
+    const search = req.params.userId;
+    const isUser = await User.findOne({ _id: search });
+
     const validPassword = bcryptjs.compareSync(
       req.body.confirmPassowrd,
       isUser.password
@@ -77,7 +82,7 @@ const deleteUser = async (req, res, next) => {
     if (validPassword) {
       await User.findByIdAndDelete(req.user.id);
       res.status(200).json("User has been deleted");
-    }else{
+    } else {
       next(errorHandler(400, "Invalid Password"));
     }
   } catch (error) {
@@ -95,14 +100,14 @@ const signout = (req, res, next) => {
   }
 };
 
- const getUsers = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
   if (!req.user.isAdmin) {
-    return next(errorHandler(403, 'You are not allowed to see all users'));
+    return next(errorHandler(403, "You are not allowed to see all users"));
   }
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+    const sortDirection = req.query.sort === "asc" ? 1 : -1;
 
     const users = await User.find()
       .sort({ createdAt: sortDirection })
@@ -137,5 +142,4 @@ const signout = (req, res, next) => {
   }
 };
 
-
-export { test, updateUser, deleteUser, signout ,getUsers};
+export { test, updateUser, deleteUser, signout, getUsers };
