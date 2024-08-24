@@ -7,9 +7,9 @@ import {
   HiAnnotation,
   HiChartPie,
 } from 'react-icons/hi';
-import { signoutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -25,7 +25,6 @@ export default function DashSidebar() {
       setTab(tabFromUrl);
     }
   }, [location.search]);
-
   const handleSignout = async () => {
     try {
       const res = await fetch('/api/user/signout', {
@@ -103,8 +102,7 @@ export default function DashSidebar() {
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'
-            onClick = {handleSignout}
-            
+            onClick={handleSignout}
           >
             Sign Out
           </Sidebar.Item>
