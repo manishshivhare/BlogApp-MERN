@@ -223,6 +223,7 @@ export default function DashProfile() {
         <TextInput
           type='email'
           id='email'
+          disabled
           placeholder='email'
           defaultValue={currentUser.email}
           onChange={handleChange}
