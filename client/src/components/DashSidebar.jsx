@@ -43,10 +43,11 @@ export default function DashSidebar() {
   return (
     <Sidebar className='w-full md:w-56'>
       <Sidebar.Items>
-        <Sidebar.ItemGroup className='flex flex-col gap-1'>
+        <Sidebar.ItemGroup className='flex flex-col gap-1 '>
           {currentUser && currentUser.isAdmin && (
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
+                className="border-2"
                 active={tab === 'dash' || !tab}
                 icon={HiChartPie}
                 as='div'
@@ -57,6 +58,7 @@ export default function DashSidebar() {
           )}
           <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
+            className="border-2"
               active={tab === 'profile'}
               icon={HiUser}
               label={currentUser.isAdmin ? 'Admin' : 'User'}
@@ -69,6 +71,7 @@ export default function DashSidebar() {
           {currentUser.isAdmin && (
             <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
+              className="border-2"
                 active={tab === 'posts'}
                 icon={HiDocumentText}
                 as='div'
@@ -81,6 +84,7 @@ export default function DashSidebar() {
             <>
               <Link to='/dashboard?tab=users'>
                 <Sidebar.Item
+                className="border-2"
                   active={tab === 'users'}
                   icon={HiOutlineUserGroup}
                   as='div'
@@ -90,6 +94,7 @@ export default function DashSidebar() {
               </Link>
               <Link to='/dashboard?tab=comments'>
                 <Sidebar.Item
+                className="border-2"
                   active={tab === 'comments'}
                   icon={HiAnnotation}
                   as='div'
@@ -100,8 +105,9 @@ export default function DashSidebar() {
             </>
           )}
           <Sidebar.Item
+          
             icon={HiArrowSmRight}
-            className='cursor-pointer'
+            className='cursor-pointer border-2'
             onClick={handleSignout}
           >
             Sign Out
