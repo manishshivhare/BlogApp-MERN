@@ -7,7 +7,7 @@ export default function CallToAction() {
             <h2 className='text-3xl font-bold mb-4 text-teal-600'>
                Play 2048 Game
             </h2>
-            <p className='text-gray-700 mb-6'>
+            <p className='text-gray-700 mb-6 dark:text-white text-center'>
                 The 2048 Puzzle Game is an addictive and challenging game that tests your strategic skills.
             </p>
             <Button gradientDuoTone='purpleToPink' className='px-6 py-1 rounded-lg text-white font-semibold text-lg transition-transform transform hover:scale-105 focus:outline-none '>

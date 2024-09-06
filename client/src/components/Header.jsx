@@ -31,12 +31,12 @@ export default function Header() {
       });
       const data = await res.json();
       if (!res.ok) {
-        console.log(data.message);
+        console.error('Sign out failed:', data.message);
       } else {
         dispatch(signoutSuccess());
       }
     } catch (error) {
-      console.log(error.message);
+      console.error('Sign out error:', error.message);
     }
   };
 
@@ -49,34 +49,38 @@ export default function Header() {
   };
 
   return (
-    <Navbar className=' font-black'>
+    <Navbar className='font-black'>
       <Link
         to='/'
-        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white font-mono'
+        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white font-mono '
       >
-        <span className='px-2 py-1 '>
-          Manish's
-        </span>
-        Blog
+        <span className='px-2 py-1'>Manish's</span> Blog
       </Link>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='flex flex-grow mx-4 '>
         <TextInput
           type='text'
           placeholder='Search...'
           rightIcon={AiOutlineSearch}
-          className='hidden lg:inline'
+          className='hidden lg:inline focus:outline-none'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          aria-label='Search'
         />
+        <Button
+          type='submit'
+          className='lg:hidden'
+          color='gray'
+          aria-label='Search'
+        >
+          <AiOutlineSearch />
+        </Button>
       </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch />
-      </Button>
       <div className='flex gap-2 md:order-2'>
         <Button
           className='w-12 h-10 hidden sm:inline border-none'
           color='gray'
           onClick={() => dispatch(toggleTheme())}
+          aria-label='Toggle Theme'
         >
           {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
@@ -84,15 +88,12 @@ export default function Header() {
           <Dropdown
             arrowIcon={false}
             inline
-            label={
-              <Avatar alt='user' img={currentUser.profilePicture} rounded />
-            }
+            label={<Avatar alt='user' img={currentUser.profilePicture} rounded />}
+            aria-label='User Menu'
           >
             <Dropdown.Header>
               <span className='block text-sm'>@{currentUser.username}</span>
-              <span className='block text-sm font-medium truncate'>
-                {currentUser.email}
-              </span>
+              <span className='block text-sm font-medium truncate'>{currentUser.email}</span>
             </Dropdown.Header>
             <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
@@ -107,7 +108,7 @@ export default function Header() {
             </Button>
           </Link>
         )}
-        <Navbar.Toggle />
+        <Navbar.Toggle aria-label='Toggle Navigation' />
       </div>
       <Navbar.Collapse>
         <Navbar.Link active={path === '/'} as={'div'}>
