@@ -54,21 +54,21 @@ export default function Header() {
         to='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white font-mono '
       >
-        <span className='px-2 py-1'>Manish's</span> Blog
+        <span className='px-2 py-1'>Manish's</span>Blog
       </Link>
-      <form onSubmit={handleSubmit} className='flex flex-grow mx-4 '>
+      <form onSubmit={handleSubmit} className='flex flex-grow mx-4 focus:outline-none focus:ring-0'>
         <TextInput
           type='text'
           placeholder='Search...'
           rightIcon={AiOutlineSearch}
-          className='hidden lg:inline focus:outline-none'
+          className='hidden lg:inline focus:outline-none focus:ring-0'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           aria-label='Search'
         />
         <Button
           type='submit'
-          className='lg:hidden'
+          className='lg:hidden focus:outline-none focus:ring-0 rounded-full'
           color='gray'
           aria-label='Search'
         >
@@ -77,7 +77,7 @@ export default function Header() {
       </form>
       <div className='flex gap-2 md:order-2'>
         <Button
-          className='w-12 h-10 hidden sm:inline border-none'
+          className='mx-3 w-12 h-10 border-none rounded-full focus:outline-none focus:ring-0'
           color='gray'
           onClick={() => dispatch(toggleTheme())}
           aria-label='Toggle Theme'
